@@ -8,43 +8,54 @@ namespace GeekBrains.OOP.Lesson2.Task1
 {
     class BankBill
     {
-        private long BillNumber;
-        private double Balance;
-        private static int LastBillNumber;
+        private readonly long _BillNumber;
+        private readonly  double _Balance;
+        private readonly BillTypes _TheBillTypes;
+        private static long LastBillNumber;
+
+        internal BankBill(): this(BillTypes.CompanyBill)
+        {
+            GenerateBillNumber();
+            Console.Write("The Last Number is: "+LastBillNumber);
+        }
+        internal BankBill(BillTypes types) : this(5555, BillTypes.CompanyBill)
+        {
+            GenerateBillNumber();
+            Console.Write("The Last Number is: " + LastBillNumber);
+        }
+        internal BankBill (int balance, BillTypes types)
+        {
+            _Balance = balance;
+            _TheBillTypes = types;
+            GenerateBillNumber();
+            Console.Write("The Last Number is: " + LastBillNumber + " Balance: " +_Balance+" BillTypes: "+_TheBillTypes);
+        }
+
+
         internal enum BillTypes{
              CompanyBill,
              PrivateBill
         }
-        private BillTypes TheBillTypes;
+
 
         internal long GetBillNumber()
         {
-            return BillNumber;
+            return _BillNumber;
         }
 
         internal double GetBalance()
         {
-            return Balance;
+            return _Balance;
         }
 
         internal BillTypes GetBillTypes()
         {
-            return TheBillTypes;
+            return _TheBillTypes;
         }
 
-        internal long SetBillNumber()
+        internal long GenerateBillNumber()
         {
-            return BillNumber = LastBillNumber+1;
-        }
-
-        internal double SetBalance(double value)
-        {
-            return Balance=value;
-        }
-
-        internal BillTypes SetBillTypes(BillTypes billTypes)
-        {
-            return TheBillTypes=BillTypes.CompanyBill;
+            return LastBillNumber++;
         }
     }
 }
